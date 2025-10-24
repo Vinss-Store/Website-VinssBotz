@@ -12,6 +12,7 @@
   CI = "false"
   GENERATE_SOURCEMAP = "false"
   DISABLE_ESLINT_PLUGIN = "true"
+  SKIP_PREFLIGHT_CHECK = "true"
 
 # Redirect rules for SPA (Single Page Application)
 [[redirects]]
