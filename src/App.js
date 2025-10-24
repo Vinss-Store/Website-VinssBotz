@@ -1,24 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
+import { ThemeProvider } from "./context/ThemeContext";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import Features from "./components/Features";
+import About from "./components/About";
+import Stats from "./components/Stats";
+import Pricing from "./components/Pricing";
+import FAQ from "./components/FAQ";
+import Footer from "./components/Footer";
+import LoadingScreen from "./components/LoadingScreen";
+import ParticleBackground from "./components/ParticleBackground";
+import "./App.css";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider>
+      <AnimatePresence>
+        {isLoading && (
+          <LoadingScreen onLoadingComplete={handleLoadingComplete} />
+        )}
+      </AnimatePresence>
+
+      {!isLoading && (
+        <>
+          <ParticleBackground />
+          <Navbar />
+          <Hero />
+          <Features />
+          <About />
+          <Stats />
+          <Pricing />
+          <FAQ />
+          <Footer />
+        </>
+      )}
+    </ThemeProvider>
   );
 }
 
