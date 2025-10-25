@@ -376,5 +376,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [![GitHub stars](https://img.shields.io/github/stars/Vinss-Store/Website-VinssBoyz?style=social)](https://github.com/Vinss-Store/Website-VinssBoyz/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/Vinss-Store/Website-VinssBoyz?style=social)](https://github.com/Vinss-Store/Website-VinssBoyz/network/members)
 
-</div>#   W e b s i t e - V i n s s B o t z  
- 
+</div>#
