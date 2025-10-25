@@ -2165,10 +2165,8 @@ ESPONSIVE HERO IMAGE === */
   .side-icon {
     animation: none !important;
   }
-}/
-* === ENHANCED PRICING IMAGE EFFECTS === */
+}
 
-/* Pricing Image Wrapper */
 .pricing-img-wrapper {
   position: relative;
   width: 120px;
