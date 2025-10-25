@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import "../App.css";
 
@@ -6,18 +6,36 @@ const LoadingScreen = ({ onLoadingComplete }) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(timer);
-          setTimeout(() => onLoadingComplete(), 500);
-          return 100;
-        }
-        return prev + 2;
-      });
-    }, 50);
+    let timer;
+    
+    try {
+      timer = setInterval(() => {
+        setProgress((prev) => {
+          if (prev >= 100) {
+            clearInterval(timer);
+            // Pastikan callback dipanggil
+            if (onLoadingComplete && typeof onLoadingComplete === 'function') {
+              setTimeout(() => onLoadingComplete(), 300);
+            }
+            return 100;
+          }
+          return prev + 4; // Lebih cepat untuk testing
+        });
+      }, 30); // Interval lebih cepat
+    } catch (error) {
+      console.error('Loading error:', error);
+      // Fallback jika ada error
+      if (onLoadingComplete) {
+        onLoadingComplete();
+      }
+    }
 
-    return () => clearInterval(timer);
+    // Cleanup
+    return () => {
+      if (timer) {
+        clearInterval(timer);
+      }
+    };
   }, [onLoadingComplete]);
 
   return (

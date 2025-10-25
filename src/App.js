@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import { ThemeProvider } from "./context/ThemeContext";
+import ErrorBoundary from "./components/ErrorBoundary";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Features from "./components/Features";
@@ -16,32 +17,58 @@ import "./App.css";
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
+  // Fallback untuk memastikan loading tidak stuck
+  useEffect(() => {
+    const fallbackTimer = setTimeout(() => {
+      setIsLoading(false);
+    }, 5000); // Maksimal 5 detik loading
+
+    return () => clearTimeout(fallbackTimer);
+  }, []);
+
   const handleLoadingComplete = () => {
     setIsLoading(false);
   };
 
-  return (
-    <ThemeProvider>
-      <AnimatePresence>
-        {isLoading && (
-          <LoadingScreen onLoadingComplete={handleLoadingComplete} />
-        )}
-      </AnimatePresence>
+  // Jika ada error, tampilkan konten langsung
+  if (typeof window !== 'undefined' && window.location.search.includes('skip-loading')) {
+    return (
+      <ThemeProvider>
+        <ParticleBackground />
+        <Navbar />
+        <Hero />
+        <Features />
+        <About />
+        <Stats />
+        <Pricing />
+        <FAQ />
+        <Footer />
+      </ThemeProvider>
+    );
+  }
 
-      {!isLoading && (
-        <>
-          <ParticleBackground />
-          <Navbar />
-          <Hero />
-          <Features />
-          <About />
-          <Stats />
-          <Pricing />
-          <FAQ />
-          <Footer />
-        </>
-      )}
-    </ThemeProvider>
+  return (
+    <ErrorBoundary>
+      <ThemeProvider>
+        <AnimatePresence mode="wait">
+          {isLoading ? (
+            <LoadingScreen key="loading" onLoadingComplete={handleLoadingComplete} />
+          ) : (
+            <div key="content">
+              <ParticleBackground />
+              <Navbar />
+              <Hero />
+              <Features />
+              <About />
+              <Stats />
+              <Pricing />
+              <FAQ />
+              <Footer />
+            </div>
+          )}
+        </AnimatePresence>
+      </ThemeProvider>
+    </ErrorBoundary>
   );
 }
 
