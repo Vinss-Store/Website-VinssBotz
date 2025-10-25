@@ -49,7 +49,7 @@ const Stats = () => {
 
       return () => clearInterval(timer);
     }
-  }, [inView]);
+  }, [inView, finalCounts]);
 
   const stats = [
     {
