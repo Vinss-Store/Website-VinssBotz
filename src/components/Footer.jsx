@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const Footer = () => {
   return (
-    <motion.footer 
+    <motion.footer
       className="footer-simple"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
