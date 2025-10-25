@@ -6,7 +6,12 @@ const ParticleBackground = () => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
+    // Only run in browser environment
+    if (typeof window === 'undefined') return;
+    
     const canvas = canvasRef.current;
+    if (!canvas) return;
+    
     const ctx = canvas.getContext("2d");
     let animationFrameId;
 

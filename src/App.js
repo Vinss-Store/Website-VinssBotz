@@ -30,20 +30,22 @@ function App() {
     setIsLoading(false);
   };
 
-  // Jika ada error, tampilkan konten langsung
+  // Jika ada error atau skip loading, tampilkan konten langsung
   if (typeof window !== 'undefined' && window.location.search.includes('skip-loading')) {
     return (
-      <ThemeProvider>
-        <ParticleBackground />
-        <Navbar />
-        <Hero />
-        <Features />
-        <About />
-        <Stats />
-        <Pricing />
-        <FAQ />
-        <Footer />
-      </ThemeProvider>
+      <ErrorBoundary>
+        <ThemeProvider>
+          <ParticleBackground />
+          <Navbar />
+          <Hero />
+          <Features />
+          <About />
+          <Stats />
+          <Pricing />
+          <FAQ />
+          <Footer />
+        </ThemeProvider>
+      </ErrorBoundary>
     );
   }
 

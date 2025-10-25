@@ -12,6 +12,11 @@ export const useTheme = () => {
 
 export const ThemeProvider = ({ children }) => {
   const [isDark, setIsDark] = useState(() => {
+    // Check if we're in browser environment
+    if (typeof window === 'undefined') {
+      return false; // Default to light theme on server
+    }
+    
     // Check localStorage first, then system preference
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -21,6 +26,9 @@ export const ThemeProvider = ({ children }) => {
   });
 
   useEffect(() => {
+    // Only run in browser environment
+    if (typeof window === 'undefined') return;
+    
     // Save theme preference to localStorage
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
     
